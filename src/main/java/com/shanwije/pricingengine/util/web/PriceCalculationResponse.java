@@ -9,9 +9,6 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PriceCalculationRequest {
-    private int unitsPerCarton;
-    private BigDecimal cartonPrice;
-    private double count;
-    private boolean isCartons;
+public class PriceCalculationResponse {
+    private BigDecimal price;
 }

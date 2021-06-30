@@ -2,6 +2,7 @@ package com.shanwije.pricingengine.service;
 
 import com.shanwije.pricingengine.repository.ProductRepository;
 import com.shanwije.pricingengine.util.web.PriceCalculationRequest;
+import com.shanwije.pricingengine.util.web.PriceCalculationResponse;
 import com.shanwije.pricingengine.util.web.ProductRow;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductRow> getProductsAndPrices() {
         return productRepository.findAll().stream().map(product -> {
-            List<BigDecimal> priceList = IntStream.range(0, REQUIRED_PRICES_LIST_LENGTH).boxed()
+            List<BigDecimal> priceList = IntStream.rangeClosed(0, REQUIRED_PRICES_LIST_LENGTH).boxed()
                     .map(amount ->
                             calculatePrice(amount, product.getUnitsPerCarton(), product.getCartonPrice()))
                     .collect(Collectors.toList());
@@ -57,12 +58,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public BigDecimal getPrice(PriceCalculationRequest request) {
-        var product = request.getProduct();
+    public PriceCalculationResponse getPrice(PriceCalculationRequest request) {
         var count = request.getCount();
         double totalUnits = request.isCartons()
-                ? count * product.getUnitsPerCarton()
+                ? count * request.getUnitsPerCarton()
                 : count;
-        return calculatePrice(totalUnits, product.getUnitsPerCarton(), product.getCartonPrice());
+        BigDecimal price = calculatePrice(totalUnits, request.getUnitsPerCarton(), request.getCartonPrice());
+        return new PriceCalculationResponse(price);
     }
 }

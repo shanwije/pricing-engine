@@ -1,6 +1,7 @@
 package com.shanwije.pricingengine.integration;
 
 import com.shanwije.pricingengine.models.Product;
+import com.shanwije.pricingengine.util.web.PriceCalculationResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,19 @@ class ProductRepositoryIntegrationTest {
         assertFalse(response.getBody().isEmpty());
     }
 
-    @DisplayName("/prices")
+    @DisplayName("/prices without params")
     @Test
-    void getPrices_returnsPrice() throws Exception {
-        ResponseEntity<BigDecimal> response = testRestTemplate.getForEntity("/prices", null, (Object) null);
+    void getPrices_returnsInvalidWhenNoParams() throws Exception {
+        ResponseEntity<BigDecimal> response = testRestTemplate.getForEntity("/price", null, (Object) null);
         assertEquals(response.getStatusCode().value(), 400);
+    }
+
+    @DisplayName("/prices with params")
+    @Test
+    void getPrices_returnsPriceWithParams() throws Exception {
+        ResponseEntity<PriceCalculationResponse> response = testRestTemplate.getForEntity("/price?cartonPrice=175&unitsPerCarton=20&quantity=5&isCartons=false", PriceCalculationResponse.class, (Object) null);
+        assertEquals(response.getStatusCode().value(), 200);
+        assertEquals( response.getBody().getPrice(),BigDecimal.valueOf(56.88));
     }
 
     // TODO: 6/30/21 here's to do the integration test on /products-and-prices, /prices endpoints.

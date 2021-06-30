@@ -3,7 +3,6 @@ package com.shanwije.pricingengine.controller;
 import com.shanwije.pricingengine.service.ProductService;
 import com.shanwije.pricingengine.util.web.PriceCalculationRequest;
 import com.shanwije.pricingengine.util.web.ProductRow;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

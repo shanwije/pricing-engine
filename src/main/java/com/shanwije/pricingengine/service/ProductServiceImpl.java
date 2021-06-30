@@ -3,7 +3,6 @@ package com.shanwije.pricingengine.service;
 import com.shanwije.pricingengine.repository.ProductRepository;
 import com.shanwije.pricingengine.util.web.PriceCalculationRequest;
 import com.shanwije.pricingengine.util.web.ProductRow;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -3,7 +3,6 @@ package com.shanwije.pricingengine;
 import com.shanwije.pricingengine.models.Product;
 import com.shanwije.pricingengine.repository.ProductRepository;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

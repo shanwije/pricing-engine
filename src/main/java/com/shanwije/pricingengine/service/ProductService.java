@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductRow> getProductsAndPrices();
+
     BigDecimal getPrice(PriceCalculationRequest request);
 }
